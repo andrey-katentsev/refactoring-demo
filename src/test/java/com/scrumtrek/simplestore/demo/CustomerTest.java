@@ -52,6 +52,29 @@ public class CustomerTest {
     }
 
     @Test
+    public void shouldGenerateStatementWhenSingleNewMovieOneDayRental(){
+        //region Fixture | Arrange | Given
+        Customer uut = new Customer("John");
+        Movie movie = new Movie("Spider Man", NewRelease);
+        Rental rental = new Rental( movie, 1);
+        uut.addRental(rental);
+        //endregion
+
+        //region Act | When
+        String statement = uut.Statement();
+        //endregion
+
+        String expected = "Rental record for John\n" +
+                "\tSpider Man\t3.0\n" +
+                "Amount owed is 3.0\n" +
+                "You earned 1 frequent renter points.";
+
+        //region Assert | Then
+        assertEquals(expected, statement);
+        //endregion
+    }
+
+    @Test
     public void shouldGenerateStatementWhenSingleMovieTwoDayRental(){
         //region Fixture | Arrange | Given
         Customer uut = new Customer("John");
