@@ -6,11 +6,11 @@ import com.scrumtrek.simplestore.Rental;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static com.scrumtrek.simplestore.PriceCodes.Childrens;
 import static com.scrumtrek.simplestore.PriceCodes.NewRelease;
 import static com.scrumtrek.simplestore.PriceCodes.Regular;
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class CustomerTest {
     @Test
@@ -76,6 +76,46 @@ public class CustomerTest {
 
         //region Assert | Then
         assertEquals(expected, statement);
+        //endregion
+    }
+
+    @Test
+    public void shouldGenerateStatementWhenCoupleMovieMultiDayRental(){
+        //region Fixture | Arrange | Given
+        Customer uut = new Customer("John");
+
+        Movie stubA = mock(Movie.class);
+        when(stubA.getPriceCode()).thenReturn(NewRelease);
+        when(stubA.getTitle()).thenReturn("Rock Movie");
+
+        Rental stubARental = new Rental( stubA, 2);
+
+        uut.addRental(stubARental);
+
+        Movie stubB = mock(Movie.class);
+        when(stubB.getPriceCode()).thenReturn(Childrens);
+        when(stubB.getTitle()).thenReturn("Mock Movie");
+
+        Rental stubBRental = new Rental( stubB, 3);
+
+        uut.addRental(stubBRental);
+        //endregion
+
+        //region Act | When
+        String statement = uut.Statement();
+        //endregion
+
+        String expected = "Rental record for John\n" +
+                "\tRock Movie\t6.0\n" +
+                "\tMock Movie\t1.5\n" +
+                "Amount owed is 7.5\n" +
+                "You earned 3 frequent renter points.";
+
+        //region Assert | Then
+        assertEquals(expected, statement);
+
+        verify(stubA, times(2)).getPriceCode();
+        verify(stubB, times(1)).getTitle();
         //endregion
     }
 }
