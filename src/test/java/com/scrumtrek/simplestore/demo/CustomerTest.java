@@ -118,4 +118,41 @@ public class CustomerTest {
         verify(stubB, times(1)).getTitle();
         //endregion
     }
+
+    @Test
+    public void shouldGenerateBonusStatementWhenRegularAndChildrenMovieMultiDayRental(){
+        //region Fixture | Arrange | Given
+        Customer uut = new Customer("John");
+
+        Movie stubA = mock(Movie.class);
+        when(stubA.getPriceCode()).thenReturn(Regular);
+        when(stubA.getTitle()).thenReturn("Rock Movie");
+
+        Rental stubARental = new Rental( stubA, 5);
+
+        uut.addRental(stubARental);
+
+        Movie stubB = mock(Movie.class);
+        when(stubB.getPriceCode()).thenReturn(Childrens);
+        when(stubB.getTitle()).thenReturn("Mock Movie");
+
+        Rental stubBRental = new Rental( stubB, 7);
+
+        uut.addRental(stubBRental);
+        //endregion
+
+        //region Act | When
+        String statement = uut.Statement();
+        //endregion
+
+        String expected = "Rental record for John\n" +
+                "\tRock Movie\t6.5\n" +
+                "\tMock Movie\t6.0\n" +
+                "Amount owed is 12.5\n" +
+                "You earned 2 frequent renter points.";
+
+        //region Assert | Then
+        assertEquals(expected, statement);
+        //endregion
+    }
 }
