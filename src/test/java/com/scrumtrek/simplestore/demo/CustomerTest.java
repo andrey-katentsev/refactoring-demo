@@ -44,7 +44,7 @@ public class CustomerTest {
         String expected = "Rental record for John\n" +
                 "\tKing Kong\t2.0\n" +
                 "Amount owed is 2.0\n" +
-                "You earned 1 frequent renter points.";
+                "You earned 1.0 frequent renter points.";
 
         //region Assert | Then
         assertEquals(expected, statement);
@@ -67,7 +67,7 @@ public class CustomerTest {
         String expected = "Rental record for John\n" +
                 "\tSpider Man\t3.0\n" +
                 "Amount owed is 3.0\n" +
-                "You earned 1 frequent renter points.";
+                "You earned 1.0 frequent renter points.";
 
         //region Assert | Then
         assertEquals(expected, statement);
@@ -95,7 +95,7 @@ public class CustomerTest {
         String expected = "Rental record for John\n" +
                 "\tMock Movie\t6.0\n" +
                 "Amount owed is 6.0\n" +
-                "You earned 2 frequent renter points.";
+                "You earned 2.0 frequent renter points.";
 
         //region Assert | Then
         assertEquals(expected, statement);
@@ -132,7 +132,7 @@ public class CustomerTest {
                 "\tRock Movie\t6.0\n" +
                 "\tMock Movie\t1.5\n" +
                 "Amount owed is 7.5\n" +
-                "You earned 3 frequent renter points.";
+                "You earned 3.0 frequent renter points.";
 
         //region Assert | Then
         assertEquals(expected, statement);
@@ -170,9 +170,9 @@ public class CustomerTest {
 
         String expected = "Rental record for John\n" +
                 "\tRock Movie\t6.5\n" +
-                "\tMock Movie\t6.0\n" +
-                "Amount owed is 12.5\n" +
-                "You earned 2 frequent renter points.";
+                "\tMock Movie\t7.5\n" +
+                "Amount owed is 14.0\n" +
+                "You earned 2.0 frequent renter points.";
 
         //region Assert | Then
         assertEquals(expected, statement);

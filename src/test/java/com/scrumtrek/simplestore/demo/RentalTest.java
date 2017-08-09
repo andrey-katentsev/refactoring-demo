@@ -26,4 +26,6 @@ public class RentalTest {
         assertEquals(0, uut.getDaysRented());
         //endregion
     }
+
+
 }
